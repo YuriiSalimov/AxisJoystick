@@ -20,6 +20,7 @@
   Created by Yurii Salimov, February, 2018.
   Released into the public domain.
 */
+#include <Arduino.h>
 #include <Joystick.h>
 #include <AxisJoystick.h>
 
@@ -28,21 +29,6 @@
 #define VRY_PIN A2
 
 Joystick* joystick;
-
-// the setup function runs once when you press reset or power the board
-void setup() {
-  Serial.begin(9600);
-
-  joystick = new AxisJoystick(SW_PIN, VRX_PIN, VRY_PIN);
-}
-
-// the loop function runs over and over again forever
-void loop() {
-  Serial.print("Joystick, Single Reading: ");
-  Serial.println(moveTitle(joystick->singleRead()));
-
-  delay(500); // optionally, only to delay the output of information in the example
-}
 
 /**
   Return title of the input joystick move.
@@ -64,4 +50,19 @@ String moveTitle(const Joystick::Move move) {
     default:
       return "???";
   }
+}
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+  Serial.begin(9600);
+
+  joystick = new AxisJoystick(SW_PIN, VRX_PIN, VRY_PIN);
+}
+
+// the loop function runs over and over again forever
+void loop() {
+  Serial.print("Joystick, Single Reading: ");
+  Serial.println(moveTitle(joystick->singleRead()));
+
+  delay(500); // optionally, only to delay the output of information in the example
 }
